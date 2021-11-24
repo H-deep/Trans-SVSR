@@ -101,8 +101,7 @@ http://shorturl.at/zMUVZ
 
 Put the model in log/ folder, then run the test with default parameters on SVSR-Set dataset. For other datasets, specify the --testset_dir accorfingly.
 
-We provided a video as the output of our method. The link is provided here:
-http://shorturl.at/lsvP4
+We provided a video as the output of our method. The link is provided here: http://shorturl.at/mtEN3
 
 For creating the results for SISR-based methods that we compared them in our paper, we provided these method on the "SISR_methods" directory. This directory contains codes about the following methods:
 
