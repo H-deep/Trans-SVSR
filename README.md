@@ -42,6 +42,21 @@ After creating the training dataset, start training with the following command:
 
 python3 train.py 
 
+The following parameters can be set:
+
+--scale_factor
+--device
+--batch_size
+--lr
+--gamma
+--start_epoch
+--n_epochs
+--n_steps
+--trainset_dir
+--model_name
+--load_pretrain
+--model_path
+
 
 # Testing #
 
