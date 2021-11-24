@@ -40,7 +40,7 @@ http://shorturl.at/mpw
 
 After creating the training dataset, start training with the following command:
 
-`python3 train.py `
+`python3 train.py --scale_factor 4 --device cuda:0 --batch_size 7 --lr 2e-3 --gamma 0.5 --start_epoch 0 --n_epochs 30 --n_steps 30 --trainset_dir ./data/train/ --model_name TransSVSR --load_pretrain False --model_path log/TransSVSR.pth.tar`
 
 The following parameters can be set:
 
