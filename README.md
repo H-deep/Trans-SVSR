@@ -59,7 +59,26 @@ The following parameters can be set:
 
 
 # Testing #
+First create the resting dataset.
+
+## Creating the test set ## 
+
+1. Put the test set in the dollowing path:
+
+data/raw_test/
+
+For SVSR-Set dataset, run the dollowing command:
+
+python3 create_test_dataset_SVSRset.py
 
 
-## Creating the dataset ## 
+For NAMA3D and LFO3D datasets, run the dollowing command:
+
+python3 create_test_dataset_nama_lfo.py
+
+Please change the path accorfing to NAMA3D or LFO3D datasets.
+
+
+
+
 
