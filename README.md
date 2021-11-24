@@ -25,7 +25,7 @@ Follow the instructions bellow to first create the training set and then start t
 
 1. Download the SVSR-Set dataset from the following link:
 
-https://drive.google.com/drive/folders/1EUu7fCY3i_p1NI4fJUcX7gg9BRw1N33a?usp=sharing
+http://shorturl.at/mpw
 
 2. Put the train set in the following path:
 
