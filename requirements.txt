@@ -1,0 +1,10 @@
+opencv-python
+numpy
+torch
+PIL
+argparse
+torchvision
+scipy
+skimage
+positional_encodings
+cv2
