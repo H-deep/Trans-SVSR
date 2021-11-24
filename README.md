@@ -96,7 +96,8 @@ With the following parameters:
 ```
 
 For testing the pre-trained Trans-SVSR model, first download the model from here: 
-https://drive.google.com/file/d/1b3cwOBRfVRO0rK13rsPt71zp8N-Dxb24/view?usp=sharing
+http://shorturl.at/dmtQR
+
 
 Put the model in log/ folder, then run the test with default parameters on SVSR-Set dataset. For other datasets, specify the --testset_dir accorfingly.
 
