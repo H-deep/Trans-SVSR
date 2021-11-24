@@ -100,6 +100,20 @@ https://drive.google.com/file/d/1b3cwOBRfVRO0rK13rsPt71zp8N-Dxb24/view?usp=shari
 
 Put the model in log/ folder, then run the test with default parameters on SVSR-Set dataset. For other datasets, specify the --testset_dir accorfingly.
 
+
+For creating the results for SISR-based methods that we compared them in our paper, we provided these method on the "SISR_methods" directory. This directory contains codes about the following methods:
+
+'''
+PASSRNet
+iPASSR
+DFAM and its 4 versions
+SAM+SRResNet
+'''
+
+For implemening these method, just follow the instructions inside each method provided by their owners.
+
+
+
 # References #
 
 [1] Matthieu Urvoy, Marcus Barkowsky, Romain Cousseau, Yao
