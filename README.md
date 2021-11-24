@@ -29,18 +29,18 @@ http://shorturl.at/mpw
 
 2. Put the train set in the following path:
 
-data/raw_train/
+`data/raw_train/`
 
 3. Start creating the train set:
 
-python3 create_train_dataset.py
+`python3 create_train_dataset.py`
 
 
 ## Start training ## 
 
 After creating the training dataset, start training with the following command:
 
-python3 train.py 
+`python3 train.py `
 
 The following parameters can be set:
 
@@ -65,16 +65,16 @@ First create the resting dataset.
 
 1. Put the test set in the dollowing path:
 
-data/raw_test/
+`data/raw_test/`
 
 For SVSR-Set dataset, run the dollowing command:
 
-python3 create_test_dataset_SVSRset.py
+`python3 create_test_dataset_SVSRset.py`
 
 
 For NAMA3D and LFO3D datasets, run the dollowing command:
 
-python3 create_test_dataset_nama_lfo.py
+`python3 create_test_dataset_nama_lfo.py`
 
 Please change the path accorfing to NAMA3D or LFO3D datasets.
 
@@ -83,7 +83,7 @@ Please change the path accorfing to NAMA3D or LFO3D datasets.
 
 Run the following command:
 
-python3 test.py
+`python3 test.py`
 
 With the following parameters:
 
