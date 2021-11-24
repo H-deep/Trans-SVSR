@@ -15,7 +15,7 @@ PyTorch 1.8.0+cu111, torchvision 0.9.0+cu111. The code is tested with python=3.6
 
 Run the following command for installing the requirements:
 
-pip3 install requirements
+`pip3 install requirements`
 
 # Training #
 
