@@ -60,11 +60,11 @@ The following parameters can be set:
 ```
 
 # Testing #
-First create the resting dataset.
+First create the testing dataset.
 
 ## Creating the test set ## 
 
-1. Put the test set in the dollowing path:
+1. Put the downloaded test videos in the dollowing path:
 
 `data/raw_test/`
 
@@ -77,7 +77,7 @@ For NAMA3D and LFO3D datasets, run the dollowing command:
 
 `python3 create_test_dataset_nama_lfo.py`
 
-Please change the path accorfing to NAMA3D or LFO3D datasets.
+Please change the path accorfing to NAMA3D or LFO3D datasets. Nama3D [1] and LFO3D [2] need to be downloaded from their references and put in the /data/raw_test/ directory first.
 
 
 ## Start testing ## 
@@ -99,3 +99,17 @@ For testing the pre-trained Trans-SVSR model, first download the model from here
 https://drive.google.com/file/d/1b3cwOBRfVRO0rK13rsPt71zp8N-Dxb24/view?usp=sharing
 
 Put the model in log/ folder, then run the test with default parameters on SVSR-Set dataset. For other datasets, specify the --testset_dir accorfingly.
+
+# References #
+
+[1] Matthieu Urvoy, Marcus Barkowsky, Romain Cousseau, Yao
+Koudota, Vincent Ricorde, Patrick Le Callet, Jesus Gutierrez,
+and Narciso Garcia. Nama3ds1-cospad1: Subjective video
+quality assessment database on coding conditions introducing
+freely available high quality 3d stereoscopic sequences. In
+Fourth International Workshop on Quality of Multimedia Experience, pages 109–114. IEEE, 2012. 1, 2, 3
+
+[2] Balasubramanyam Appina, Sathya Veera Reddy Dendi, K
+Manasa, Sumohana S Channappayya, and Alan C Bovik.
+Study of subjective quality and objective blind quality prediction of stereoscopic videos. IEEE Transactions on Image
+Processing, 28(10):5027–5040, 2019. 1, 2, 3
