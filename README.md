@@ -103,12 +103,12 @@ Put the model in log/ folder, then run the test with default parameters on SVSR-
 
 For creating the results for SISR-based methods that we compared them in our paper, we provided these method on the "SISR_methods" directory. This directory contains codes about the following methods:
 
-'''
+```
 PASSRNet
 iPASSR
 DFAM and its 4 versions
 SAM+SRResNet
-'''
+```
 
 For implemening these method, just follow the instructions inside each method provided by their owners.
 
