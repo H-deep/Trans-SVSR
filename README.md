@@ -44,6 +44,7 @@ After creating the training dataset, start training with the following command:
 
 The following parameters can be set:
 
+```
 --scale_factor
 --device
 --batch_size
@@ -56,7 +57,7 @@ The following parameters can be set:
 --model_name
 --load_pretrain
 --model_path
-
+```
 
 # Testing #
 First create the resting dataset.
@@ -87,11 +88,12 @@ Run the following command:
 
 With the following parameters:
 
+```
 --testset_dir
 --scale_factor
 --device
 --model_name
-    
+```
 
 For testing the pre-trained Trans-SVSR model, first download the model from here: 
 https://drive.google.com/file/d/1b3cwOBRfVRO0rK13rsPt71zp8N-Dxb24/view?usp=sharing
