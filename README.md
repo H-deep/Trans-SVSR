@@ -79,6 +79,17 @@ python3 create_test_dataset_nama_lfo.py
 Please change the path accorfing to NAMA3D or LFO3D datasets.
 
 
+## Start testing ## 
 
+Run the following command:
 
+python3 test.py
+
+With the following parameters:
+
+--testset_dir
+--scale_factor
+--device
+--model_name
+    
 
