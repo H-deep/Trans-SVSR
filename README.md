@@ -104,10 +104,10 @@ Put the model in log/ folder, then run the test with default parameters on SVSR-
 For creating the results for SISR-based methods that we compared them in our paper, we provided these method on the "SISR_methods" directory. This directory contains codes about the following methods:
 
 ```
-PASSRNet
-iPASSR
-DFAM and its 4 versions
-SAM+SRResNet
+PASSRNet [3]
+iPASSR [4]
+DFAM and its 4 versions [5]
+SRRes+SAM [6]
 ```
 
 For implemening these method, just follow the instructions inside each method provided by their owners.
@@ -127,3 +127,20 @@ Fourth International Workshop on Quality of Multimedia Experience, pages 109–1
 Manasa, Sumohana S Channappayya, and Alan C Bovik.
 Study of subjective quality and objective blind quality prediction of stereoscopic videos. IEEE Transactions on Image
 Processing, 28(10):5027–5040, 2019. 1, 2, 3
+
+[3] Longguang Wang, Yingqian Wang, Zhengfa Liang, Zaiping
+Lin, Jungang Yang, Wei An, and Yulan Guo. Learning parallax attention for stereo image super-resolution. In Proceedings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, pages 12250–12259, 2019. 1, 2, 5, 7, 8
+
+[4] Yingqian Wang, Xinyi Ying, Longguang Wang, Jungang
+Yang, Wei An, and Yulan Guo. Symmetric parallax attention for stereo image super-resolution. In Proceedings of
+the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 766–775, 2021. 1, 2, 7, 8
+
+[5] Jiawang Dan, Zhaowei Qu, Xiaoru Wang, and Jiahang Gu. A
+disparity feature alignment module for stereo image superresolution. IEEE Signal Processing Letters, 2021. 7, 8
+
+[6] Xinyi Ying, Yingqian Wang, Longguang Wang, Weidong
+Sheng, Wei An, and Yulan Guo. A stereo attention module
+for stereo image super-resolution. IEEE Signal Processing
+Letters, 27:496–500, 2020. 1, 7
