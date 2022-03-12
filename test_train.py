@@ -4,7 +4,7 @@ from torchvision.transforms import ToTensor
 import argparse
 import os
 # from model import *
-from model_simple import *
+from model_simple_ff import *
 from torchvision import transforms
 import cv2
 
@@ -31,7 +31,7 @@ def parse_args():
     parser.add_argument('--scale_factor', type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda:0')
     # parser.add_argument('--device', type=str, default='cpu')
-    parser.add_argument('--model_name', type=str, default='iPASSR_4xSR_epoch1')
+    parser.add_argument('--model_name', type=str, default='TransSNSR_4xSR_epoch1ablationFF')
     return parser.parse_args()
 
 

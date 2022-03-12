@@ -8,7 +8,7 @@ from utils2 import *
 
 # import basicsrwsl
 
-from model_simple import *
+from model_simple_one_frame import *
 import cv2
 from skimage.metrics import structural_similarity as compare_ssim
 from math import log10, sqrt
@@ -33,7 +33,7 @@ def parse_args():
     parser.add_argument("--scale_factor", type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda:0')
     parser.add_argument('--batch_size', type=int, default=24)
-    parser.add_argument('--lr', type=float, default=2e-4, help='initial learning rate')
+    parser.add_argument('--lr', type=float, default=5e-4, help='initial learning rate')
     parser.add_argument('--gamma', type=float, default=0.5, help='')
     parser.add_argument('--start_epoch', type=int, default=0, help='start epoch')
     parser.add_argument('--n_epochs', type=int, default=30, help='number of epochs to train')
@@ -157,7 +157,7 @@ def train(train_loader, cfg):
 
 def main(cfg):
     train_set = TrainSetLoader(cfg)
-    train_loader = DataLoader(dataset=train_set, num_workers=4,pin_memory=True, batch_size=cfg.batch_size, shuffle=True)
+    train_loader = DataLoader(dataset=train_set, num_workers=0,pin_memory=True, batch_size=cfg.batch_size, shuffle=True)
     train(train_loader, cfg)
 
 if __name__ == '__main__':

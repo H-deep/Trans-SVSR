@@ -28,10 +28,10 @@ def PSNR(original, compressed):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--testset_dir', type=str, default='./data/test/')
+    parser.add_argument('--testset_dir', type=str, default='./data/test_part_nama/')
     parser.add_argument('--scale_factor', type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda:0')
-    parser.add_argument('--model_name', type=str, default='TransSVSR_4xSR')
+    parser.add_argument('--model_name', type=str, default='TransSNSR_4xSR_epoch1MainNewModel31.97')
     return parser.parse_args()
 
 
@@ -91,7 +91,7 @@ def test(cfg):
         if fr_counter<10:
             net.train()
         else:
-            net.eval()
+            net.train()
 
         with torch.no_grad():
             SR_left, SR_right = net(img_lr_left_list, img_lr_right_list, is_training=1)
@@ -138,10 +138,24 @@ def test(cfg):
         print("avg_ssim_value: ", final_ssim)
         print("fr_counter:", fr_counter)
 
+        if fr_counter == 1:
+            os.mkdir(save_path + '/left')
+            os.mkdir(save_path + '/right')
+            os.mkdir(save_path + '/left_hr')
+            os.mkdir(save_path + '/right_hr')
 
-        SR_left_img.save(save_path + '/' + scene_name + '_L.png')
+
+        SR_left_img.save(save_path + '/left' + '/' + scene_name + '_L.png')
         SR_right_img = transforms.ToPILImage()(torch.squeeze(SR_right.data.cpu(), 0))
-        SR_right_img.save(save_path + '/' + scene_name + '_R.png')
+        SR_right_img.save(save_path + '/right' + '/' + scene_name + '_R.png')
+
+        # cv2.imwrite(save_path + '/left_hr' + '/' + scene_name + '_L.png', hr0.permute(1,2,0).cpu().detach().numpy())
+        hr00 = Image.open(hr0_path)
+        hr11 = Image.open(hr1_path)
+
+        hr00.save(save_path + '/left_hr' + '/' + scene_name + '_L.png')
+        hr11.save(save_path + '/right_hr' + '/' + scene_name + '_R.png')
+        # hr1.cpu().detach().numpy().save(save_path + '/right_hr' + '/' + scene_name + '_L.png')
 
 
 if __name__ == '__main__':

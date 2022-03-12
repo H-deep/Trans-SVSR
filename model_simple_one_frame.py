@@ -197,6 +197,16 @@ class Net(nn.Module):
 
 
 
+        x_left[:,:,0,:,:] = x_left[:,:,2,:,:]
+        x_left[:,:,1,:,:] = x_left[:,:,2,:,:]
+        x_left[:,:,3,:,:] = x_left[:,:,2,:,:]
+        x_left[:,:,4,:,:] = x_left[:,:,2,:,:]
+
+        x_right[:,:,0,:,:] = x_right[:,:,2,:,:]
+        x_right[:,:,1,:,:] = x_right[:,:,2,:,:]
+        x_right[:,:,3,:,:] = x_right[:,:,2,:,:]
+        x_right[:,:,4,:,:] = x_right[:,:,2,:,:]
+
         b, c, t, h, w = x_left.shape
 
         mid_left = self.relu(self.middle(x_left[:,:,2,:,:]))
@@ -235,8 +245,8 @@ class Net(nn.Module):
         buffer_leftT = self.relu(self.init_feature2(buffer_leftT))
         buffer_rightT = self.relu(self.init_feature2(buffer_rightT))
 
-        # buffer_leftT = self.bn2(buffer_leftT)
-        # buffer_rightT = self.bn2(buffer_rightT)
+        buffer_leftT = self.bn2(buffer_leftT)
+        buffer_rightT = self.bn2(buffer_rightT)
         
         buffer_leftT = self.relu(self.conv_bres1(buffer_leftT))
         buffer_rightT = self.relu(self.conv_bres2(buffer_rightT))

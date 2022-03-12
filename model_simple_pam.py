@@ -143,7 +143,7 @@ class Net(nn.Module):
         self.bn = nn.BatchNorm2d(32)
         self.bn2 = nn.BatchNorm2d(32)
         self.deep_feature = RDG(G0=32, C=4, G=24, n_RDB=4)
-        self.pam = PAM(32)
+        # self.pam = PAM(32)
 
         self.transformer = vsrTransformer(spatial_dim)
         # self.transformer2 = vsrTransformer(spatial_dim)
@@ -160,6 +160,11 @@ class Net(nn.Module):
 
         # self.ResNetBottleNeck2 = ResNetBottleNeckBlock(256, 3)
 
+        self.upscale = nn.Sequential(
+            nn.Conv2d(3, 3 * upscale_factor ** 2, 1, 1, 0, bias=True),
+            nn.PixelShuffle(upscale_factor),
+            nn.Conv2d(3, 3, 3, 1, 1, bias=True))
+
 
         self.conv_1 = nn.Conv2d(256, 512, 3, 1, 1, bias=True)
         self.conv_2 = nn.Conv2d(512, 1024, 3, 1, 1, bias=True)
@@ -169,10 +174,6 @@ class Net(nn.Module):
         self.conv_6 = nn.Conv2d(256, 128, 3, 1, 1, bias=True)
         self.conv_7 = nn.Conv2d(128, 3, 3, 1, 1, bias=True)
 
-        self.upscale = nn.Sequential(
-            nn.Conv2d(3, 3 * upscale_factor ** 2, 1, 1, 0, bias=True),
-            nn.PixelShuffle(upscale_factor),
-            nn.Conv2d(3, 3, 3, 1, 1, bias=True))
 
     def forward(self, x_left, x_right, is_training=1):
 
@@ -217,7 +218,7 @@ class Net(nn.Module):
         # buffer_left = self.pre_transform(x_left)
         # buffer_right = self.pre_transform(x_right)
         buffer_left = self.transformer(x_left1)
-        buffer_right = self.transformer(x_right1)
+        buffer_right = self.transformer2(x_right1)
 
         buffer_left = self.relu(self.init_feature(buffer_left))
         buffer_right = self.relu(self.init_feature(buffer_right))
@@ -226,12 +227,13 @@ class Net(nn.Module):
         buffer_right, catfea_right = self.deep_feature(buffer_right)
 
 
-        buffer_leftT, buffer_rightT = self.pam(buffer_left, buffer_right, catfea_left, catfea_right, 1)
+        # buffer_leftT, buffer_rightT = self.pam(buffer_left, buffer_right, catfea_left, catfea_right, 1)
 
 
-        buffer_leftT = mid_left + buffer_leftT
-        buffer_rightT = mid_right + buffer_rightT
-
+        # buffer_leftT = mid_left + buffer_left
+        # buffer_rightT = mid_right + buffer_right
+        buffer_leftT = buffer_left
+        buffer_rightT = buffer_right
         buffer_leftT = self.relu(self.init_feature2(buffer_leftT))
         buffer_rightT = self.relu(self.init_feature2(buffer_rightT))
 
@@ -241,8 +243,8 @@ class Net(nn.Module):
         buffer_leftT = self.relu(self.conv_bres1(buffer_leftT))
         buffer_rightT = self.relu(self.conv_bres2(buffer_rightT))
 
-
-
+        # buffer_leftT = self.ResNetBottleNeck1(buffer_leftT)
+        # buffer_rightT = self.ResNetBottleNeck2(buffer_rightT)
 
 
 
@@ -262,15 +264,12 @@ class Net(nn.Module):
         buffer_leftT = self.conv_7(buffer_leftT)
         buffer_rightT = self.conv_7(buffer_rightT)
 ##########################################################
-        # buffer_leftT = self.ResNetBottleNeck1(buffer_leftT)
-        # buffer_rightT = self.ResNetBottleNeck2(buffer_rightT)
 
         buffer_leftT = self.upscale(buffer_leftT)
         buffer_rightT = self.upscale(buffer_rightT)
 
         ll =  F.interpolate(x_left[:,:,2,:,:], scale_factor=self.upscale_factor, mode='bicubic', align_corners=False)
         rr =  F.interpolate(x_right[:,:,2,:,:], scale_factor=self.upscale_factor, mode='bicubic', align_corners=False)
-
 
 
 
