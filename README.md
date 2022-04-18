@@ -10,7 +10,7 @@ Stereo video super-resolution (SVSR) aims to enhance the spatial resolution of t
 
 # Requirements #
 
-![alt text](https://github.com/H-deep/Trans-SVSR/blob/main/FIG7..%20(2).jpg)
+![alt text](https://github.com/H-deep/Trans-SVSR/blob/main/qual.png)
 
 PyTorch 1.8.0+cu111, torchvision 0.9.0+cu111. The code is tested with python=3.6, cuda=10.2 with RTX 3090 GPU.
 
