@@ -9,7 +9,7 @@ The code for paper "A Transformer-based Model and a New Dataset for Stereoscopic
 Stereo video super-resolution (SVSR) aims to enhance the spatial resolution of the low-resolution video by reconstructing the high-resolution video. The key challenges in SVSR are preserving the stereo-consistency and temporal-consistency, without which viewers may experience 3D fatigue. There are several notable works on stereoscopic image super-resolution (SISR), but research on stereo video resolution is rare. In this paper, we propose a novel Transformer-based model for SVSR, namely \textit{Trans-SVSR}. \textit{Trans-SVSR} comprises two key novel components: a spatio-temporal convolutional self-attention layer and an optical flow-based feed-forward layer that discovers the correlation across different video frames and aligns the features. The parallax attention mechanism (PAM) that uses the cross-view information to consider the significant disparities is used for fusion of the stereo views. Due to the lack of the benchmark dataset suitable for the SVSR task, we collected a new stereoscopic video dataset, SVSR-Set.
 
 
-![alt text](https://github.com/H-deep/Trans-SVSR/blob/main/qual.png)
+![alt text](https://github.com/H-deep/Trans-SVSR/blob/main/qual2.png)
 
 
 
