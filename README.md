@@ -2,7 +2,7 @@
 
 
 
-The code for paper "A Transformer-based Model and a New Dataset for Stereoscopic Video Super-Resolution ".
+The code for paper "A New Dataset and Transformer for Stereoscopic Video Super-Resolution".
 
 
 # Overview #
