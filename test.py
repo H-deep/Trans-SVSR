@@ -57,7 +57,7 @@ def test(cfg):
                 child.track_runing_stats = False
                 child.runing_mean = None
                 child.runing_var = None
-    # net.load_state_dict(model['state_dict'])
+    net.load_state_dict(model['state_dict'])
     net.eval()
 
 

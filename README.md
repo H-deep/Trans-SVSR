@@ -103,9 +103,9 @@ python3 test.py \
 ```
 ---
 
-## 5. Edge / Production Inference
+## 5. Edge Deployment (ONNX / TensorRT)
 
-This repo includes a minimal **edge export + benchmark** path to demonstrate real-time deployment.
+This repository supports exporting the Trans-SVSR model for efficient deployment on edge devices (e.g., Jetson, RTX laptops, or other embedded GPUs).
 
 **Folder layout (added):**
 
@@ -113,50 +113,53 @@ This repo includes a minimal **edge export + benchmark** path to demonstrate rea
 edge/
   export_onnx.py          # PyTorch → ONNX
   build_trt.py            # ONNX → TensorRT (FP16/INT8)
-  benchmark_infer.py      # latency/FPS/VRAM harness
-  tiling.py               # optional high-res tiling utilities
-  README_EDGE.md          # Jetson notes, power logging, tips
 ```
 
 ### 5.1 Export to ONNX
-
+The model can be exported from its PyTorch checkpoint (.pth.tar) to ONNX format:
 ```bash
-# Example input size for stereo (B=1, C=2, H=540, W=960). Adjust to your model.
-python3 edge/export_onnx.py \
-  --ckpt outputs/transsvsr_x4/best.pth \
-  --onnx outputs/transsvsr_x4/model.onnx \
-  --height 540 --width 960 --dynamic
+python export_onnx.py \
+  --ckpt log/TransSVSR_4xSR.pth.tar \
+  --onnx outputs/transsvsr_x4/model_static.onnx \
+  --height 540 --width 960 --frames 5 --channels 3 \
+  --scale 4 --opset 14 --device cuda
 ```
 
-### 5.2 Build TensorRT Engine (FP16 / INT8)
+Output: outputs/transsvsr_x4/model_static.onnx
 
+This file can be used for inference with ONNX Runtime  or for conversion to TensorRT.
+### 5.2 Build TensorRT Engine (FP16 or INT8)
+
+Once the ONNX file is created, build a TensorRT engine for deployment:
 ```bash
 # FP16 engine
-python3 edge/build_trt.py \
-  --onnx outputs/transsvsr_x4/model.onnx \
+python build_trt.py \
+  --onnx outputs/transsvsr_x4/model_static.onnx \
   --engine outputs/transsvsr_x4/model_fp16.engine \
-  --fp16 --workspace_gb 4
+  --fp16 \
+  --min_T 5 --opt_T 5 --max_T 5 \
+  --min_H 540 --opt_H 540 --max_H 540 \
+  --min_W 960 --opt_W 960 --max_W 960
 
-# INT8 (requires a small calibr. set; see README_EDGE.md)
-python3 edge/build_trt.py \
-  --onnx outputs/transsvsr_x4/model.onnx \
+Output: outputs/transsvsr_x4/model_fp16.engine
+
+# INT8 
+To build an INT8 engine, create a folder calib_samples/ containing .npy batches:
+calib_samples/
+  left_000.npy
+  right_000.npy
+  left_001.npy
+  right_001.npy
+  ...
+
+Then run:
+python build_trt.py \
+  --onnx outputs/transsvsr_x4/model_static.onnx \
   --engine outputs/transsvsr_x4/model_int8.engine \
-  --int8 --workspace_gb 4
+  --int8 --calib_dir calib_samples/ \
+  --opt_T 5 --opt_H 540 --opt_W 960
 ```
 
-### 5.3 Benchmark Latency / FPS / VRAM
-
-```bash
-python3 edge/benchmark_infer.py \
-  --engine outputs/transsvsr_x4/model_fp16.engine \
-  --height 540 --width 960 --batch 1
-```
-
-**Benchmark CSV schema (saved to `benchmarks/latency.csv`):**
-
-```
-device,input_h,input_w,precision,batch,fps,avg_latency_ms,vram_mb,power_w,notes,date
-```
 
 ### 5.4 Jetson Notes (power & clocks)
 
@@ -169,6 +172,15 @@ sudo jetson_clocks
 tegrastats --interval 1000 > tegrastats.log
 ```
 
+💡 Notes
+
+The exported ONNX is fully compatible with TensorRT 8.x–9.x and ONNX Runtime GPU.
+
+Default input shape: (B=1, C=3, T=5, H=540, W=960)
+
+Dynamic axes can be enabled with --dynamic, but static shapes are faster and more stable on edge GPUs.
+
+FP16 mode offers best trade-off between accuracy and speed for Jetson/RTX devices.
 
 ## 6. Citation
 
