@@ -82,15 +82,15 @@ python3 train.py --scale_factor 4 --device cuda:0 --batch_size 7 --lr 2e-3 --gam
 
 First create the testing dataset.
 
-###Creating the test set
-Put the downloaded test videos in the dollowing path:
+Creating the test set
+Put the downloaded test videos in the following path:
 data/raw_test/
 
-For SVSR-Set dataset, run the dollowing command:
+For SVSR-Set dataset, run the following command:
 
 python3 create_test_dataset_SVSRset.py
 
-For NAMA3D and LFO3D datasets, run the dollowing command:
+For NAMA3D and LFO3D datasets, run the following command:
 
 python3 create_test_dataset_nama_lfo.py
 
