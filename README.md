@@ -4,8 +4,6 @@
 
 This repository contains the implementation of **Trans-SVSR**, a **CVPR-published stereo video super-resolution framework** that reconstructs temporally consistent high-resolution frames from stereo video pairs.
 
-Unlike traditional academic prototypes, this version is **refactored for edge and industrial applications**, enabling real-time deployment on embedded GPUs and vision hardware.
-
 ### 🔹 Key Features
 - 🧠 **CVPR-proven architecture** — Transformer-based stereo SR with multi-frame fusion and cross-view attention  
 - ⚙️ **Edge-ready deployment** — Export to **ONNX** and **TensorRT (FP16/INT8)** for Jetson and RTX devices  
@@ -23,15 +21,12 @@ Originally developed as part of a **CVPR publication**, the project bridges **ac
 ### 🔹 Edge Deployment Pipeline
 The repository now includes a full edge pipeline:
 - `export_onnx.py` — Export trained PyTorch model → ONNX  
-- `build_trt.py` — Convert ONNX → TensorRT FP16 / INT8 engine  
 - `benchmark_ort.py` — Benchmark ONNX GPU inference (latency, FPS, VRAM)
 
 See the **Edge Deployment** section below for detailed usage.
 
 ---
 
-**Repository Maintainer:** [Hassan Imani](https://github.com/H-deep)  
-**Publication:** CVPR — Stereo Video Super-Resolution (Trans-SVSR)  
 **Keywords:** Stereo Vision · Super-Resolution · Transformers · Edge AI · ONNX · TensorRT
 
 ---
@@ -62,7 +57,8 @@ pip install -r requirements.txt
 
 ## 2. Data Preparation
 
-1. **Download videos** for training (follow the dataset links/scripts you prefer).
+1. **Download videos** for training:
+http://shorturl.at/mpwGX
 2. Put the raw videos in:
 
 ```
@@ -107,8 +103,10 @@ python3 train.py --scale_factor 4 --device cuda:0 --batch_size 7 --lr 2e-3 --gam
 
 First create the testing dataset.
 
-Creating the test set
+Creating the test set:
+
 Put the downloaded test videos in the following path:
+
 data/raw_test/
 
 For SVSR-Set dataset, run the following command:
@@ -137,7 +135,7 @@ This repository supports exporting the Trans-SVSR model for efficient deployment
 **Folder layout (added):**
 
 ```
-edge/
+root/
   export_onnx.py          # PyTorch → ONNX
   build_trt.py            # ONNX → TensorRT (FP16/INT8)
 ```
@@ -145,7 +143,7 @@ edge/
 ### 5.1 Export to ONNX
 The model can be exported from its PyTorch checkpoint (.pth.tar) to ONNX format:
 ```bash
-python export_onnx.py \
+python3 export_onnx.py \
   --ckpt log/TransSVSR_4xSR.pth.tar \
   --onnx outputs/transsvsr_x4/model_static.onnx \
   --height 540 --width 960 --frames 5 --channels 3 \
@@ -154,13 +152,13 @@ python export_onnx.py \
 
 Output: outputs/transsvsr_x4/model_static.onnx
 
-This file can be used for inference with ONNX Runtime  or for conversion to TensorRT.
+This file can be used for inference with ONNX Runtime or for conversion to TensorRT.
 ### 5.2 Build TensorRT Engine (FP16 or INT8)
 
 Once the ONNX file is created, build a TensorRT engine for deployment:
 ```bash
 # FP16 engine
-python build_trt.py \
+python3 build_trt.py \
   --onnx outputs/transsvsr_x4/model_static.onnx \
   --engine outputs/transsvsr_x4/model_fp16.engine \
   --fp16 \
@@ -180,7 +178,7 @@ calib_samples/
   ...
 
 Then run:
-python build_trt.py \
+python3 build_trt.py \
   --onnx outputs/transsvsr_x4/model_static.onnx \
   --engine outputs/transsvsr_x4/model_int8.engine \
   --int8 --calib_dir calib_samples/ \
