@@ -1,12 +1,3 @@
-Awesome—let’s lock this in and make your repo look “hire-me-for-edge-CV” ready.
-
-Below is a **drop-in README** you can paste into `README.md` (edit author/citation bits as you like), followed by a **step-by-step plan** to add the Edge folder and scripts.
-
----
-
-# ✅ Polished `README.md` (paste this into your repo)
-
-````markdown
 # Trans-SVSR — Transformer-based Stereo Video Super-Resolution (x4)
 
 **Trans-SVSR** is a transformer architecture for **stereo video super-resolution**.  
