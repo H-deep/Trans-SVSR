@@ -32,16 +32,16 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--scale_factor", type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda:0')
-    parser.add_argument('--batch_size', type=int, default=24)
+    parser.add_argument('--batch_size', type=int, default=2)
     parser.add_argument('--lr', type=float, default=2e-4, help='initial learning rate')
     parser.add_argument('--gamma', type=float, default=0.5, help='')
     parser.add_argument('--start_epoch', type=int, default=0, help='start epoch')
-    parser.add_argument('--n_epochs', type=int, default=30, help='number of epochs to train')
+    parser.add_argument('--n_epochs', type=int, default=1, help='number of epochs to train')
     parser.add_argument('--n_steps', type=int, default=1, help='number of epochs to update learning rate')
     parser.add_argument('--trainset_dir', type=str, default='./data/train/')
     parser.add_argument('--model_name', type=str, default='TransSNSR')
     parser.add_argument('--load_pretrain', type=bool, default=False)
-    parser.add_argument('--model_path', type=str, default='log/TransSNSR.pth.tar')
+    parser.add_argument('--model_path', type=str, default='log2/TransSNSR.pth.tar')
     return parser.parse_args()
 
 
@@ -148,8 +148,8 @@ def train(train_loader, cfg):
         if idx_epoch % 1 == 0:
             loss_list.append(float(np.array(loss_epoch).mean()))
 
-            print('Epoch--%4d, loss--%f, loss_SR--%f' %
-                  (idx_epoch + 1, float(np.array(loss_SR.data.cpu()).mean()), float(np.array(loss_SR.data.cpu()).mean())))
+            # print('Epoch--%4d, loss--%f, loss_SR--%f' %
+            #       (idx_epoch + 1, float(np.array(loss_SR.data.cpu()).mean()), float(np.array(loss_SR.data.cpu()).mean())))
             torch.save({'epoch': idx_epoch + 1, 'state_dict': net.state_dict()},
                        'log/' + cfg.model_name + '_' + str(cfg.scale_factor) + 'xSR_epoch' + str(idx_epoch + 1) + '.pth.tar')
             loss_epoch = []

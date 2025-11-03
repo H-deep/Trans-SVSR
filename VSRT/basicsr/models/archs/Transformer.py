@@ -6,7 +6,7 @@ import numpy as np
 from VSRT.basicsr.models.archs.arch_util import (ResidualBlockNoBN, make_layer, RCAB, ResidualGroup, default_conv, RCABWithInputConv)
 from einops import rearrange, repeat
 from einops.layers.torch import Rearrange
-from positional_encodings import PositionalEncodingPermute3D
+# from positional_encodings import PositionalEncodingPermute3D
 from torch.nn import init
 import math
 from torch import einsum
@@ -16,6 +16,17 @@ from mmcv.runner import load_checkpoint
 from VSRT.basicsr.models.archs.flow_warp import flow_warp
 import pdb
 
+import torch
+from positional_encodings.torch_encodings import PositionalEncoding3D
+
+class PositionalEncodingPermute3D(PositionalEncoding3D):
+    """Wrapper for compatibility with models expecting (B, C, D, H, W) input instead of (B, D, H, W, C)."""
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # x shape: (B, C, D, H, W)
+        x = x.permute(0, 2, 3, 4, 1)  # to (B, D, H, W, C)
+        x = super().forward(x)
+        x = x.permute(0, 4, 1, 2, 3)  # back to (B, C, D, H, W)
+        return x
 
 
 class DLA(nn.Module):

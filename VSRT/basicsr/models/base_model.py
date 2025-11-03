@@ -9,8 +9,8 @@ from VSRT.basicsr.models import lr_scheduler as lr_scheduler
 from VSRT.basicsr.utils.dist_util import master_only
 from VSRT.basicsr.utils.utils_modelsummary import get_model_activation, get_model_flops
 
-from fvcore.nn.flop_count import _DEFAULT_SUPPORTED_OPS, FlopCountAnalysis, flop_count
-from torch import einsum
+# from fvcore.nn.flop_count import _DEFAULT_SUPPORTED_OPS, FlopCountAnalysis, flop_count
+# from torch import einsum
 
 import pdb
 

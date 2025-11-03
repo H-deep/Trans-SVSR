@@ -22,7 +22,7 @@ from VSRT.basicsr.models.archs.spynet import SPyNet
 
 from VESPCN.option import args
 # from VESPCN.model.motioncompensator import make_model as make_mc
-from VSRT.basicsr.models.archs.Transformer_ff import vsrTransformer 
+from VSRT.basicsr.models.archs.Transformer import vsrTransformer 
 from sofvsr import OFRnet, optical_flow_warp
 # from VSRT.basicsr.models.archs.flow_warp import flow_warp
 from VSRT.basicsr.models.archs.flow_warp import flow_warp

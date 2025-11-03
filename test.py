@@ -28,10 +28,11 @@ def PSNR(original, compressed):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--testset_dir', type=str, default='./data/test_part_nama/')
+    # parser.add_argument('--testset_dir', type=str, default='./data/test/SVSRset/lr_x4/')
+    parser.add_argument('--testset_dir', type=str, default='./data/test/')
     parser.add_argument('--scale_factor', type=int, default=4)
     parser.add_argument('--device', type=str, default='cuda:0')
-    parser.add_argument('--model_name', type=str, default='TransSNSR_4xSR_epoch1MainNewModel31.97')
+    parser.add_argument('--model_name', type=str, default='TransSVSR_4xSR')
     return parser.parse_args()
 
 
@@ -42,7 +43,7 @@ def toTensor(img):
 def test(cfg):
     spatial_dim = (int(1920/4), int(1080/4))
     net = Net(cfg.scale_factor, spatial_dim, cfg).to(cfg.device)
-    model = torch.load('./log/' + cfg.model_name + '.pth.tar')
+    model = torch.load('./log2/' + cfg.model_name + '.pth.tar')
     for m in net.modules():
         for child in m.children():
             if type(child) == nn.BatchNorm2d:
@@ -56,7 +57,7 @@ def test(cfg):
                 child.track_runing_stats = False
                 child.runing_mean = None
                 child.runing_var = None
-    net.load_state_dict(model['state_dict'])
+    # net.load_state_dict(model['state_dict'])
     net.eval()
 
 

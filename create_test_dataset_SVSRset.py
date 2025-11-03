@@ -22,7 +22,7 @@ for vid in list_vids:
     try:
         while ret2:
             ret, frame = cap.read()
-            if (frame_counter+1)%20==0:
+            if (frame_counter+1)%30==0:
                 frame_counter += 1
                 break
 
