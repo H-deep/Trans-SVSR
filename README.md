@@ -17,9 +17,7 @@ It reconstructs high-resolution frames by leveraging **left/right** views and **
 - [3. Training](#3-training)
 - [4. Testing / Evaluation](#4-testing--evaluation)
 - [5. Edge / Production Inference](#5-edge--production-inference)
-- [6. Results](#6-results)
-- [7. Citation](#7-citation)
-- [8. License](#8-license)
+- [6. Citation](#7-citation)
 
 ---
 
@@ -42,10 +40,9 @@ pip install -r requirements.txt
 
 ```
 data/raw_train/
-    ├─ vid_0001_left.mp4
-    ├─ vid_0001_right.mp4
-    ├─ vid_0002_left.mp4
-    ├─ vid_0002_right.mp4
+    ├─ vid_0001.mp4
+    ├─ vid_0002.mp4
+    ├─ vid_0003.mp4
     └─ ...
 ```
 
@@ -74,41 +71,36 @@ data/train/patches_x4/
 ## 3. Training
 
 ```bash
-python3 train.py \
-  --train_dir data/train/patches_x4 \
-  --epochs 300 \
-  --batch_size 4 \
-  --lr 2e-4 \
-  --save_dir outputs/transsvsr_x4
+python3 train.py --scale_factor 4 --device cuda:0 --batch_size 7 --lr 2e-3 --gamma 0.5 --start_epoch 0 --n_epochs 30 --n_steps 30 --trainset_dir ./data/train/ --model_name TransSVSR --load_pretrain False --model_path log/TransSVSR.pth.tar
 ```
-
-* Checkpoints and logs will be saved in `outputs/transsvsr_x4/`.
-* Edit model/runtime options in `configs/*.yaml` (if provided) or CLI flags.
 
 ---
 
 ## 4. Testing / Evaluation
 
-All test-time options are documented in the repo’s test scripts. Typical flow:
+First create the testing dataset.
+
+###Creating the test set
+Put the downloaded test videos in the dollowing path:
+data/raw_test/
+
+For SVSR-Set dataset, run the dollowing command:
+
+python3 create_test_dataset_SVSRset.py
+
+For NAMA3D and LFO3D datasets, run the dollowing command:
+
+python3 create_test_dataset_nama_lfo.py
+
+Please change the path accorfing to NAMA3D or LFO3D datasets. Nama3D [1] and LFO3D [2] need to be downloaded from their references and put in the /data/raw_test/ directory first.
 
 ```bash
 # Single stereo sequence
 python3 test.py \
-  --ckpt outputs/transsvsr_x4/best.pth \
-  --left  data/test/left_0001.mp4 \
-  --right data/test/right_0001.mp4 \
-  --out   outputs/test/seq0001
+  --model_name TransSVSR_4xSR \
+  --testset_dir  ./data/test/ \
 
-# Batch evaluation on a list
-python3 test_batch.py \
-  --ckpt outputs/transsvsr_x4/best.pth \
-  --list data/test/list.txt \
-  --save_root outputs/test/
 ```
-
-**Metrics** (PSNR/SSIM) and qualitative frames are written under `outputs/test/...`.
-For reproducibility, keep the same resizing and color space as training.
-
 ---
 
 ## 5. Edge / Production Inference
