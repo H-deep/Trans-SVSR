@@ -1,13 +1,38 @@
-# Trans-SVSR — Transformer-based Stereo Video Super-Resolution (x4)
+## 🏆 About
 
-**Trans-SVSR** is a transformer architecture for **stereo video super-resolution**.  
-It reconstructs high-resolution frames by leveraging **left/right** views and **temporal** context.
+**Trans-SVSR: Transformer-based Stereo Video Super-Resolution**
 
-> **Highlights**
-> - Stereo + temporal transformer backbone
-> - Patch-based training pipeline (x4)
-> - Reproducible evaluation scripts
-> - **Edge/production** export: ONNX → TensorRT (FP16/INT8) + benchmark harness
+This repository contains the implementation of **Trans-SVSR**, a **CVPR-published stereo video super-resolution framework** that reconstructs temporally consistent high-resolution frames from stereo video pairs.
+
+Unlike traditional academic prototypes, this version is **refactored for edge and industrial applications**, enabling real-time deployment on embedded GPUs and vision hardware.
+
+### 🔹 Key Features
+- 🧠 **CVPR-proven architecture** — Transformer-based stereo SR with multi-frame fusion and cross-view attention  
+- ⚙️ **Edge-ready deployment** — Export to **ONNX** and **TensorRT (FP16/INT8)** for Jetson and RTX devices  
+- 🚀 **Optimized for performance** — Low-latency inference, GPU benchmarking, and memory profiling  
+- 💡 **Industrial focus** — Suitable for robotics, 3D perception, and real-time vision enhancement  
+
+### 🔹 Research Background
+This work extends state-of-the-art research in **stereo image/video super-resolution**, incorporating:
+- Transformer-based spatio-temporal modeling  
+- Optical-flow-guided feature alignment  
+- Multi-stage refinement and perceptual quality enhancement  
+
+Originally developed as part of a **CVPR publication**, the project bridges **academic excellence** with **practical edge-AI deployment**.
+
+### 🔹 Edge Deployment Pipeline
+The repository now includes a full edge pipeline:
+- `export_onnx.py` — Export trained PyTorch model → ONNX  
+- `build_trt.py` — Convert ONNX → TensorRT FP16 / INT8 engine  
+- `benchmark_ort.py` — Benchmark ONNX GPU inference (latency, FPS, VRAM)
+
+See the **Edge Deployment** section below for detailed usage.
+
+---
+
+**Repository Maintainer:** [Hassan Imani](https://github.com/H-deep)  
+**Publication:** CVPR — Stereo Video Super-Resolution (Trans-SVSR)  
+**Keywords:** Stereo Vision · Super-Resolution · Transformers · Edge AI · ONNX · TensorRT
 
 ---
 
