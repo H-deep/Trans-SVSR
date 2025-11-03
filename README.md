@@ -17,7 +17,7 @@ It reconstructs high-resolution frames by leveraging **left/right** views and **
 - [3. Training](#3-training)
 - [4. Testing / Evaluation](#4-testing--evaluation)
 - [5. Edge / Production Inference](#5-edge--production-inference)
-- [6. Citation](#7-citation)
+- [6. Citation](#6-citation)
 
 ---
 
