@@ -21,6 +21,8 @@ It reconstructs high-resolution frames by leveraging **left/right** views and **
 
 ---
 
+![alt text](https://github.com/H-deep/Trans-SVSR/blob/main/model.png)
+
 ## 1. Environment
 
 ```bash
@@ -183,6 +185,8 @@ Dynamic axes can be enabled with --dynamic, but static shapes are faster and mor
 FP16 mode offers best trade-off between accuracy and speed for Jetson/RTX devices.
 
 ## 6. Citation
+
+![alt text](https://github.com/H-deep/Trans-SVSR/blob/main/res.png)
 
 If you use this repository, please cite our paper:
 
