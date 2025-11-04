@@ -1,17 +1,4 @@
 #!/usr/bin/env python3
-"""
-Export Trans-SVSR (Net) to ONNX without letting VESPCN.option parse argv.
-
-It PRE-LOADS a dummy module 'VESPCN.option' with an 'args' object so
-`from VESPCN.option import args` in model_simple.py does not trigger argparse.
-
-Usage:
-  python export_onnx.py \
-    --ckpt log/TransSVSR_4xSR.pth.tar \
-    --onnx outputs/transsvsr_x4/model.onnx \
-    --height 540 --width 960 --frames 5 --channels 3 \
-    --scale 4 --dynamic --opset 17 --device cuda --simplify
-"""
 
 import os
 import sys
@@ -20,11 +7,7 @@ import argparse
 import torch
 import torch.nn as nn
 
-# ------------------------------------------------------------------
-# 1) Inject a fake module: VESPCN.option with an 'args' namespace
-# ------------------------------------------------------------------
 fake_args = types.SimpleNamespace()
-# These two are what your Net expects to read from cfg in practice:
 fake_args.scale_factor = 4
 fake_args.device = "cuda"
 
@@ -35,9 +18,6 @@ setattr(option_mod, "args", fake_args)
 sys.modules["VESPCN"] = vespcn_pkg
 sys.modules["VESPCN.option"] = option_mod
 
-# ------------------------------------------------------------------
-# 2) Now safe to import your model without real arg parsing
-# ------------------------------------------------------------------
 from model_simple import Net  # Net(upscale_factor, spatial_dim, cfg)
 
 

@@ -1,29 +1,4 @@
 #!/usr/bin/env python3
-"""
-Build a TensorRT engine for Trans-SVSR (two inputs, two outputs, 5D tensors).
-
-Works across TRT versions:
-- TRT >= 8.2+: uses builder.build_serialized_network(...) → deserialize
-- Older: falls back to builder.build_engine(...) if present
-
-Examples
---------
-# FP16 (fixed 5x240x240)
-python3 edge/build_trt.py \
-  --onnx outputs/transsvsr_x4/model_static.onnx \
-  --engine outputs/transsvsr_x4/model_fp16.engine \
-  --fp16 \
-  --min_T 5 --opt_T 5 --max_T 5 \
-  --min_H 240 --opt_H 240 --max_H 240 \
-  --min_W 240 --opt_W 240 --max_W 240
-
-# INT8 with calibration pairs (left_*.npy/right_*.npy shaped (1,3,T,H,W))
-python3 edge/build_trt.py \
-  --onnx outputs/transsvsr_x4/model_static.onnx \
-  --engine outputs/transsvsr_x4/model_int8.engine \
-  --int8 --calib_dir calib_samples/ \
-  --opt_T 5 --opt_H 540 --opt_W 960
-"""
 
 import os
 import glob
